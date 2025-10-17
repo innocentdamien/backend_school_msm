@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Kisii School Backend API', status: 'running' });
+});
+
 // Teachers routes
 app.get('/api/teachers', async (req, res) => {
   try {
