@@ -13,6 +13,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Kisii School Backend API', status: 'running' });
 });
 
+// Favicon route
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
+
 // Teachers routes
 app.get('/api/teachers', async (req, res) => {
   try {
