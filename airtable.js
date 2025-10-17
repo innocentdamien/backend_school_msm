@@ -1,21 +1,28 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 const Airtable = require('airtable');
+
+// Debug environment variables
+console.log('Environment check:', {
+  AIRTABLE_API_TOKEN: process.env.AIRTABLE_API_TOKEN ? 'SET' : 'MISSING',
+  AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID || 'MISSING',
+  TEACHERS_TABLE_ID: process.env.TEACHERS_TABLE_ID || 'MISSING'
+});
 
 // Configure Airtable
 const base = new Airtable({
   apiKey: process.env.AIRTABLE_API_TOKEN
 }).base(process.env.AIRTABLE_BASE_ID);
 
-// Table references
+// Table references with fallback
 const tables = {
-  teachers: base(process.env.TEACHERS_TABLE_ID),
-  forms: base(process.env.FORMS_TABLE_ID),
-  caseConferences: base(process.env.CASE_CONFERENCES_TABLE_ID),
-  guardians: base(process.env.GUARDIANS_TABLE_ID),
-  documentLibrary: base(process.env.DOCUMENT_LIBRARY_TABLE_ID),
-  adminSettings: base(process.env.ADMIN_SETTINGS_TABLE_ID),
-  users: base(process.env.USERS_TABLE_ID),
-  students: base(process.env.STUDENTS_TABLE_ID)
+  teachers: base(process.env.TEACHERS_TABLE_ID || 'tblWPt0tiWwqA2dUW'),
+  forms: base(process.env.FORMS_TABLE_ID || 'tbl79ZFvV9wxCNQkq'),
+  caseConferences: base(process.env.CASE_CONFERENCES_TABLE_ID || 'tblRZd4Qil5VWcmio'),
+  guardians: base(process.env.GUARDIANS_TABLE_ID || 'tbl0PVjfkbzORzsAt'),
+  documentLibrary: base(process.env.DOCUMENT_LIBRARY_TABLE_ID || 'tblcFKmrD62a9Vl5r'),
+  adminSettings: base(process.env.ADMIN_SETTINGS_TABLE_ID || 'tbl1VZTrlTmu4V7c7'),
+  users: base(process.env.USERS_TABLE_ID || 'tblCbLEMflLMf1QiG'),
+  students: base(process.env.STUDENTS_TABLE_ID || 'tblCHg6hnJ0oA0iUo')
 };
 
 // API functions
